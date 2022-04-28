@@ -1,0 +1,16 @@
+{
+	"name": "broken-gm-bot",
+	"version": "0.0.1",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"@discordjs/opus": "^0.3.2",
+		"discord.js": "github:discordjs/discord.js#af00ec8970e77ea8a0afd21571eeeef9c554e1ec",
+		"dotenv": "^16.0.0",
+		"ffmpeg-static": "^4.2.7"
+	}
+}
