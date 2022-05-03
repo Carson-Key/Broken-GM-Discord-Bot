@@ -1,4 +1,6 @@
 require("dotenv").config();
+const { commands } = require('./commands/index.js');
+
 const { Client, Intents } = require("discord.js");
 const client = new Client({
     intents: [
@@ -9,8 +11,20 @@ const client = new Client({
     ]
 });
 
+const COMMAND_PREFIX = process.env.COMMAND_PREFIX
+const DISCORD_TOKEN = process.env.DISCORD_TOKEN
+
+client.on("messageCreate", async (message) => {
+    if (!message.guildId || message.author.bot) {
+        return
+    } else {
+        const command = message.content.slice(1).split(" ");
+        commands[command[0].toLowerCase()](message)
+    }
+});
+
 client.on('ready', () => {
     console.log("Ready");
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(DISCORD_TOKEN);
