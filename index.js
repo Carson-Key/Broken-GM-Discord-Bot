@@ -17,9 +17,12 @@ const DISCORD_TOKEN = process.env.DISCORD_TOKEN
 client.on("messageCreate", async (message) => {
     if (!message.guildId || message.author.bot) {
         return
-    } else {
-        const command = message.content.slice(1).split(" ");
-        commands[command[0].toLowerCase()](message)
+    } else if (message.content.startsWith(COMMAND_PREFIX)) {
+        const command = message.content.slice(COMMAND_PREFIX.length).split(" ");
+        const commandLowerCase = command[0].toLowerCase()
+        if (commands[commandLowerCase]) {
+            commands[commandLowerCase](message)
+        }
     }
 });
 
