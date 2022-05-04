@@ -36,9 +36,17 @@ function createListeningStream(receiver, userId, textChannel, client) {
                 path
             ]);
             py.stdout.on('data', (data) => {
-                client.channels.cache
+                const trasncribedData = data.toString()
+                console.log(trasncribedData)
+                if (trasncribedData === "Failed to Recognize Speech") {
+                    client.channels.cache
                     .get(textChannel.channelId)
-                    .send("<@" + userId + ">" + " " + data.toString());
+                    .send("<@" + userId + ">" + " __***" + trasncribedData + "***__");
+                } else {
+                    client.channels.cache
+                    .get(textChannel.channelId)
+                    .send("<@" + userId + ">" + " " + trasncribedData);
+                }
             });
         }
     });
