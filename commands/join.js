@@ -1,4 +1,4 @@
-const { entersState, joinVoiceChannel, EndBehaviorType, VoiceConnection, VoiceConnectionStatus } = require('@discordjs/voice');
+const { entersState, joinVoiceChannel, EndBehaviorType, VoiceConnectionStatus } = require('@discordjs/voice');
 const fs = require("fs");
 const { pipeline } = require('node:stream');
 const prism = require('prism-media');
