@@ -1,4 +1,4 @@
-const leave = async (message) => {
+const leave = async (client, message) => {
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel) {
         console.log("Not in a Voice Channel")

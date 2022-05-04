@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { commands } = require('./commands/index.js');
-
 const { Client, Intents } = require("discord.js");
+
 const client = new Client({
     intents: [
         Intents.FLAGS.GUILDS,
@@ -21,7 +21,7 @@ client.on("messageCreate", async (message) => {
         const command = message.content.slice(COMMAND_PREFIX.length).split(" ");
         const commandLowerCase = command[0].toLowerCase()
         if (commands[commandLowerCase]) {
-            commands[commandLowerCase](message)
+            commands[commandLowerCase](client, message)
         }
     }
 });
