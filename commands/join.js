@@ -4,13 +4,14 @@ const { pipeline } = require('node:stream');
 const prism = require('prism-media');
 
 function createListeningStream(receiver, userId) {
+    const path = __dirname + "/../recordings/" + Date.now() + "-" + userId + ".ogg";
+    
     const opusStream = receiver.subscribe(userId, {
         end: {
             behavior: EndBehaviorType.AfterSilence,
             duration: 100,
         },
     });
-
     const oggStream = new prism.opus.OggLogicalBitstream({
         opusHead: new prism.opus.OpusHead({
             channelCount: 2,
@@ -20,16 +21,13 @@ function createListeningStream(receiver, userId) {
             maxPackets: 10,
         }),
     });
-
-    const filename = `./recordings/${Date.now()}.ogg`;
-
-    const out = fs.createWriteStream(filename);
+    const out = fs.createWriteStream(path);
 
     pipeline(opusStream, oggStream, out, (err) => {
         if (err) {
-            console.warn(`❌ Error recording file ${filename} - ${err.message}`);
+            console.warn("Error recording file " + path + ": " + err.message);
         } else {
-            console.log(`✅ Recorded ${filename}`);
+            console.log("Recorded " + path);
         }
     });
 }
@@ -53,7 +51,7 @@ const join = async (client, message) => {
             const receiver = connection.receiver;
     
             receiver.speaking.on('start', (userId) => {
-                console.log(userId)
+                console.log(message.member.user.username + " Started Speaking")
                 createListeningStream(receiver, userId)
             });
         } catch (error) {
