@@ -1,4 +1,5 @@
 # The BrokenGM Discord Bot!
+# MAKE SURE TO READ THE LEGAL DISCLAIMER AT THE BUTTOM OF THIS README BEFORE USING THIS CODE
 
 ## Description
 Currently this bot only has one functionality, and thats to transcribe your conversations into a text channel! This has numerous applications, including accessibility and record keeping. Before using this application be aware of conversation recording laws in your country/state and of the laws of all participants countries. 
