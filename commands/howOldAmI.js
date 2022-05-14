@@ -1,4 +1,5 @@
 const moment = require('moment');
+const { ageStringGenerater } = require('../helpers/howOldAmI');
 
 const howOldAmI = async (client, message) => {
     const accountCreation = moment(message.member.user.createdAt)
@@ -6,13 +7,7 @@ const howOldAmI = async (client, message) => {
     const ageInMiliseconds = now.diff(accountCreation)
     const ageMomentObject = moment.duration(ageInMiliseconds)
     const ageData = ageMomentObject._data
-    const age = 
-        ageData.years.toString() + " years, " +
-        ageData.months.toString() + " months, " +
-        ageData.days.toString() + " days, " +
-        ageData.hours.toString() + " hours, " +
-        ageData.minutes.toString() + " minutes, and " +
-        ageData.seconds.toString() + " seconds"
+    const age = ageStringGenerater(ageData)
 
     client.channels.cache
         .get(message.channelId)
