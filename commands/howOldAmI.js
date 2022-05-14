@@ -7,15 +7,7 @@ const howOldAmI = async (client, message) => {
     const ageInMiliseconds = now.diff(accountCreation)
     const ageMomentObject = moment.duration(ageInMiliseconds)
     const ageData = ageMomentObject._data
-    const age = ageStringGenerater({
-        milliseconds: 210,
-        seconds: 46,
-        minutes: 54,
-        hours: 0,
-        days: 8,
-        months: 1,
-        years: 0
-      })
+    const age = ageStringGenerater(ageData)
 
     client.channels.cache
         .get(message.channelId)
