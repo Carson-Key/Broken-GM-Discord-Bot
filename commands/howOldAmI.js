@@ -1,4 +1,3 @@
-const { CommandInteractionOptionResolver } = require('discord.js');
 const moment = require('moment');
 
 const howOldAmI = async (client, message) => {
