@@ -1,13 +1,14 @@
 const { entersState, joinVoiceChannel, EndBehaviorType, VoiceConnectionStatus } = require('@discordjs/voice');
 const fs = require("fs");
+const path = require("path");
 const { pipeline } = require('node:stream');
 const prism = require('prism-media');
 const child = require('child_process');
 
-const pythonPath = __dirname + "/../bin/speech_to_text.py"
+const pythonPath = path.normalize(__dirname + "/../bin/speech_to_text.py")
 
 function createListeningStream(receiver, userId, textChannel, client) {
-    const path = __dirname + "/../recordings/" + Date.now() + "-" + userId + ".ogg";
+    const recordingPath = path.normalize(__dirname + "/../recordings/" + Date.now() + "-" + userId + ".ogg");
     
     const opusStream = receiver.subscribe(userId, {
         end: {
@@ -24,16 +25,16 @@ function createListeningStream(receiver, userId, textChannel, client) {
             maxPackets: 10,
         }),
     });
-    const out = fs.createWriteStream(path);
+    const out = fs.createWriteStream(recordingPath);
 
     pipeline(opusStream, oggStream, out, (err) => {
         if (err) {
-            console.warn("Error recording file " + path + ": " + err.message);
+            console.warn("Error recording file " + recordingPath + ": " + err.message);
         } else {
-            console.log("Recorded " + path);
+            console.log("Recorded " + recordingPath);
             let py = child.spawn('python3', [
                 pythonPath,
-                path
+                recordingPath
             ]);
             py.stdout.on('data', (data) => {
                 const trasncribedData = data.toString()
