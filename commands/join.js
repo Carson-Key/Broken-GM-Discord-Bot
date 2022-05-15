@@ -32,7 +32,7 @@ function createListeningStream(receiver, userId, textChannel, client) {
             console.warn("Error recording file " + recordingPath + ": " + err.message);
         } else {
             console.log("Recorded " + recordingPath);
-            let py = child.spawn('python3', [
+            let py = child.spawn(process.env.PYTHON_COMMAND, [
                 pythonPath,
                 recordingPath
             ]);
