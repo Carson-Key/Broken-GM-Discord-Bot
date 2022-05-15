@@ -32,5 +32,5 @@ if __name__ == "__main__":
             MyText = r.recognize_google(audio, language="EN")
             print(MyText, end = "")
     except:
-        print("Failed to Recognize Speech", end = "")
+        print("Failed to Recognize Speech", file=sys.stderr, end = "")
     os.remove(new_path)

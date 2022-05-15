@@ -38,16 +38,13 @@ function createListeningStream(receiver, userId, textChannel, client) {
             ]);
             py.stdout.on('data', (data) => {
                 const trasncribedData = data.toString()
-                console.log(trasncribedData)
-                if (trasncribedData === "Failed to Recognize Speech") {
-                    client.channels.cache
-                    .get(textChannel.channelId)
-                    .send("<@" + userId + ">" + " __***" + trasncribedData + "***__");
-                } else {
-                    client.channels.cache
+                client.channels.cache
                     .get(textChannel.channelId)
                     .send("<@" + userId + ">" + " " + trasncribedData);
-                }
+            });
+            py.stderr.on('data', (data) => {
+                const error = data.toString()
+                console.log(error)
             });
         }
     });
