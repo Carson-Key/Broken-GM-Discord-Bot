@@ -19,7 +19,7 @@ function createListeningStream(receiver, userId, textChannel, client) {
     const oggStream = new prism.opus.OggLogicalBitstream({
         opusHead: new prism.opus.OpusHead({
             channelCount: 2,
-            sampleRate: 48000,
+            sampleRate: 44100,
         }),
         opusTags: new prism.opus.OpusTags({
             maxPackets: 10,
